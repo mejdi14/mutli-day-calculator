@@ -29,8 +29,8 @@ fun MainScreen() {
                 text = "On avarage you need to ride",
                 modifier = Modifier
                     .padding(start = 20.dp),
-                color = Color.Black,
-                fontWeight = FontWeight.Light,
+                color = Color.Gray,
+                fontWeight = FontWeight.Medium,
                 fontSize = 14.sp
             )
             Text(
@@ -46,8 +46,8 @@ fun MainScreen() {
                 text = "On some days, you'll have to climb over",
                 modifier = Modifier
                     .padding(start = 20.dp),
-                color = Color.Black,
-                fontWeight = FontWeight.Light,
+                color = Color.Gray,
+                fontWeight = FontWeight.Medium,
                 fontSize = 14.sp
             )
             Text(
@@ -63,8 +63,8 @@ fun MainScreen() {
                 text = "The overall difficulty is",
                 modifier = Modifier
                     .padding(start = 20.dp),
-                color = Color.Black,
-                fontWeight = FontWeight.Light,
+                color = Color.Gray,
+                fontWeight = FontWeight.Medium,
                 fontSize = 14.sp
             )
             Text(
