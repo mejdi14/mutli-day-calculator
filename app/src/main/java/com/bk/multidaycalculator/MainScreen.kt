@@ -116,13 +116,10 @@ fun MainScreen() {
                     drawContext.canvas.nativeCanvas.apply{
 
                         val angleInRad = i * (360f / 20f) * (PI.toFloat() / 180f)
-                        val lineStart = Offset(
-                            x = ((size.minDimension )) * cos(angleInRad) + center.x,
-                            y = (size.minDimension) * sin(angleInRad) + center.y
-                        )
+
                         drawText(i.toString(),
-                            ((size.minDimension / 2)) * cos(angleInRad) ,
-                            (size.minDimension / 2) * sin(angleInRad) , Paint().apply {
+                            ((size.minDimension - 140) / 2) * cos(angleInRad) + center.x,
+                            ((canvasHeight - 140) / 2) * sin(angleInRad) + center.y + 30, Paint().apply {
                                 textAlign = Paint.Align.CENTER
                                 textSize = 60F
                                 color = Color.Black.hashCode()
