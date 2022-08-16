@@ -1,0 +1,23 @@
+
+on:
+  issues:
+    types: [ assigned ]
+
+jobs:
+  create_issue_branch_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Issue Branch
+        uses: robvanderleek/create-issue-branch@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: create new branch
+        uses: actions/github-script@v4
+        with:
+          script: |
+            github.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: "![Alt Text](https://media.giphy.com/media/uurU31TE5YAUM/giphy.gif)"
+            });
