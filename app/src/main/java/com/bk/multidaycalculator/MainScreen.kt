@@ -113,34 +113,17 @@ fun MainScreen() {
                     radius = 48F,
                 )
                 for (i in 1..20)
-                    drawContext.canvas.nativeCanvas.apply{
-
+                    drawContext.canvas.nativeCanvas.apply {
                         val angleInRad = i * (360f / 20f) * (PI.toFloat() / 180f)
-
                         drawText(i.toString(),
                             ((size.minDimension - 140) / 2) * cos(angleInRad) + center.x,
-                            ((canvasHeight - 140) / 2) * sin(angleInRad) + center.y + 30, Paint().apply {
+                            ((canvasHeight - 140) / 2) * sin(angleInRad) + center.y + 30,
+                            Paint().apply {
                                 textAlign = Paint.Align.CENTER
                                 textSize = 60F
                                 color = Color.Black.hashCode()
                             }
                         )
-               /* when(i){
-                     in 1..5 -> {
-                         drawText(i.toString(),
-                             (canvasWidth) - ((canvasWidth / 2) / 5) * i,
-                                 ((canvasHeight / 2) - (((canvasHeight / 2) / 5) * (i - 1))), Paint().apply {
-                                 textAlign = Paint.Align.CENTER
-                                 textSize = 60F
-                                 color = Color.Black.hashCode()
-                             }
-                         )
-                     }
-                    in 6..10 -> {
-
-                    }
-                }*/
-
                     }
             }
         }
