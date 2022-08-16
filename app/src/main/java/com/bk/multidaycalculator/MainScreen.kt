@@ -121,8 +121,8 @@ fun MainScreen() {
                             y = (size.minDimension) * sin(angleInRad) + center.y
                         )
                         drawText(i.toString(),
-                            ((size.minDimension / 2)) * cos(angleInRad) + center.x,
-                            (size.minDimension / 2) * sin(angleInRad) + center.y, Paint().apply {
+                            ((size.minDimension / 2)) * cos(angleInRad) ,
+                            (size.minDimension / 2) * sin(angleInRad) , Paint().apply {
                                 textAlign = Paint.Align.CENTER
                                 textSize = 60F
                                 color = Color.Black.hashCode()
