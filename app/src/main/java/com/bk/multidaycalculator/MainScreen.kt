@@ -14,6 +14,9 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.math.PI
+import kotlin.math.cos
+import kotlin.math.sin
 
 @Composable
 fun MainScreen() {
@@ -109,16 +112,39 @@ fun MainScreen() {
                     center = Offset(x = canvasWidth / 4, y = canvasHeight / 2),
                     radius = 48F,
                 )
+                for (i in 1..20)
+                    drawContext.canvas.nativeCanvas.apply{
 
-                drawContext.canvas.nativeCanvas.apply {
-                    drawText("1", canvasWidth / 2,
-                         70F, Paint().apply {
-                            textAlign = Paint.Align.CENTER
-                            textSize = 60F
-                            color = Color.Black.hashCode()
-                        }
-                    )
-                }
+                        val angleInRad = i * (360f / 20f) * (PI.toFloat() / 180f)
+                        val lineStart = Offset(
+                            x = ((size.minDimension )) * cos(angleInRad) + center.x,
+                            y = (size.minDimension) * sin(angleInRad) + center.y
+                        )
+                        drawText(i.toString(),
+                            ((size.minDimension / 2)) * cos(angleInRad) + center.x,
+                            (size.minDimension / 2) * sin(angleInRad) + center.y, Paint().apply {
+                                textAlign = Paint.Align.CENTER
+                                textSize = 60F
+                                color = Color.Black.hashCode()
+                            }
+                        )
+               /* when(i){
+                     in 1..5 -> {
+                         drawText(i.toString(),
+                             (canvasWidth) - ((canvasWidth / 2) / 5) * i,
+                                 ((canvasHeight / 2) - (((canvasHeight / 2) / 5) * (i - 1))), Paint().apply {
+                                 textAlign = Paint.Align.CENTER
+                                 textSize = 60F
+                                 color = Color.Black.hashCode()
+                             }
+                         )
+                     }
+                    in 6..10 -> {
+
+                    }
+                }*/
+
+                    }
             }
         }
     }
