@@ -14,6 +14,9 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.math.PI
+import kotlin.math.cos
+import kotlin.math.sin
 
 @Composable
 fun MainScreen() {
@@ -109,16 +112,19 @@ fun MainScreen() {
                     center = Offset(x = canvasWidth / 4, y = canvasHeight / 2),
                     radius = 48F,
                 )
-
-                drawContext.canvas.nativeCanvas.apply {
-                    drawText("1", canvasWidth / 2,
-                         70F, Paint().apply {
-                            textAlign = Paint.Align.CENTER
-                            textSize = 60F
-                            color = Color.Black.hashCode()
-                        }
-                    )
-                }
+                for (i in 1..20)
+                    drawContext.canvas.nativeCanvas.apply {
+                        val angleInRad = i * (360f / 20f) * (PI.toFloat() / 180f)
+                        drawText(i.toString(),
+                            ((size.minDimension - 140) / 2) * cos(angleInRad) + center.x,
+                            ((canvasHeight - 140) / 2) * sin(angleInRad) + center.y + 30,
+                            Paint().apply {
+                                textAlign = Paint.Align.CENTER
+                                textSize = 60F
+                                color = Color.Black.hashCode()
+                            }
+                        )
+                    }
             }
         }
     }
