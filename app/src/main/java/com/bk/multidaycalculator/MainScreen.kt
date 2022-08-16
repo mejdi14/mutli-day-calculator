@@ -1,5 +1,6 @@
 package com.bk.multidaycalculator
 
+import android.graphics.Paint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -9,13 +10,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
 fun MainScreen() {
-    Box(modifier = Modifier.fillMaxSize().background(Color(0xFFf3e8e6))) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFf3e8e6))
+    ) {
 
         Column(modifier = Modifier.fillMaxSize()) {
             Box(modifier = Modifier.height(60.dp))
@@ -78,14 +84,18 @@ fun MainScreen() {
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp
             )
-            Canvas(modifier = Modifier.fillMaxSize().padding(20.dp)) {
+            Canvas(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(20.dp)
+            ) {
                 val canvasWidth = size.width
                 val canvasHeight = size.height
 
                 drawCircle(
                     color = Color.Black,
                     center = Offset(x = canvasWidth / 2, y = canvasHeight / 2),
-                    radius = size.minDimension/2,
+                    radius = size.minDimension / 2,
                     style = Stroke(10F)
                 )
 
@@ -97,10 +107,19 @@ fun MainScreen() {
                 drawCircle(
                     color = Color(0xFF7DCE13),
                     center = Offset(x = canvasWidth / 4, y = canvasHeight / 2),
-                    radius = 48F ,
+                    radius = 48F,
                 )
-            }
 
+                drawContext.canvas.nativeCanvas.apply {
+                    drawText("1", canvasWidth / 2,
+                         70F, Paint().apply {
+                            textAlign = Paint.Align.CENTER
+                            textSize = 60F
+                            color = Color.Black.hashCode()
+                        }
+                    )
+                }
+            }
         }
     }
 }
