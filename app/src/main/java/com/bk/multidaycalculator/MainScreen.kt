@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun MainScreen() {
-    Column {
+    Column (modifier = Modifier.fillMaxSize()){
         Text(text = "20 Days", modifier = Modifier
             .size(30.dp)
             .padding(start = 20.dp)
