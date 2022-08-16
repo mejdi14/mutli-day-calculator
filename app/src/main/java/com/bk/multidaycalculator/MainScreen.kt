@@ -1,11 +1,14 @@
 package com.bk.multidaycalculator
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -75,6 +78,29 @@ fun MainScreen() {
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp
             )
+            Canvas(modifier = Modifier.fillMaxSize().padding(20.dp)) {
+                val canvasWidth = size.width
+                val canvasHeight = size.height
+
+                drawCircle(
+                    color = Color.Black,
+                    center = Offset(x = canvasWidth / 2, y = canvasHeight / 2),
+                    radius = size.minDimension/2,
+                    style = Stroke(10F)
+                )
+
+                drawCircle(
+                    color = Color.Black,
+                    center = Offset(x = canvasWidth / 2, y = canvasHeight / 2),
+                    radius = 15F,
+                )
+                drawCircle(
+                    color = Color(0xFF7DCE13),
+                    center = Offset(x = canvasWidth / 4, y = canvasHeight / 2),
+                    radius = 48F ,
+                )
+            }
+
         }
     }
 }
