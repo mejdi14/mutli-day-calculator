@@ -92,12 +92,12 @@ fun MainScreen() {
                 drawCircle(
                     color = Color.Black,
                     center = Offset(x = canvasWidth / 2, y = canvasHeight / 2),
-                    radius = 30F / 2,
+                    radius = 15F,
                 )
                 drawCircle(
                     color = Color(0xFF7DCE13),
                     center = Offset(x = canvasWidth / 4, y = canvasHeight / 2),
-                    radius = 70F / 2,
+                    radius = 48F ,
                 )
             }
 
