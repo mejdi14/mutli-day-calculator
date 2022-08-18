@@ -123,10 +123,27 @@ fun MainScreen() {
                                 x = circleCenter.y - change.position.y
                             ) * (180f / PI.toFloat())
                             //angle = oldAngle + (if((touchAngle - dragStartedAngle) > 0) (touchAngle - dragStartedAngle) else -(touchAngle - dragStartedAngle))
-                           if(change.position.x > change.previousPosition.x)
-                            angle--
-                            else
-                                angle++
+                            if (change.position.x < change.previousPosition.x) {
+                                if (change.position.y > change.previousPosition.y){
+                                Log.d("TAG", "MainScreen: first first")
+                                    angle++
+                                }
+                                else{
+                                Log.d("TAG", "MainScreen: first second")
+                                    angle--
+                                }
+                            } else {
+                                if (change.position.y > change.previousPosition.y){
+                                Log.d("TAG", "MainScreen: second first")
+
+                                    angle++
+                                }
+                                else{
+                                Log.d("TAG", "MainScreen: second second")
+
+                                    angle++
+                                }
+                            }
                             //Log.d("TAG", "touchAngle: $touchAngle")
                         }
                     })
@@ -151,9 +168,9 @@ fun MainScreen() {
                     center = Offset(x = canvasWidth / 4, y = canvasHeight / 2),
                     radius = 48F,
                 )
-                for (i in 1..20)
+                for (i in 1..24)
                     drawContext.canvas.nativeCanvas.apply {
-                        val angleInRad = (i * (360f / 20f) * (PI.toFloat() / 180f)) - (angle / 20)
+                        val angleInRad = (i * (360f / 24f) * (PI.toFloat() / 180f)) - (angle / 20)
                         drawText(i.toString(),
                             ((size.minDimension - 140) / 2) * cos(angleInRad) + center.x,
                             ((canvasHeight - 140) / 2) * sin(angleInRad) + center.y + 30,
