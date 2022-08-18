@@ -1,6 +1,7 @@
 package com.bk.multidaycalculator
 
 import android.graphics.Paint
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -26,7 +27,7 @@ fun MainScreen() {
     var oldAngle by remember {
         mutableStateOf(0f)
     }
-    var circleCenter by remember {
+    val circleCenter by remember {
         mutableStateOf(Offset.Zero)
     }
     var dragStartedAngle by remember {
@@ -110,17 +111,23 @@ fun MainScreen() {
                                     y = circleCenter.x - offset.x,
                                     x = circleCenter.y - offset.y
                                 ) * (180f / PI.toFloat())
+                                //Log.d("TAG", "MainScreen: $dragStartedAngle")
                             },
                             onDragEnd = {
                                 oldAngle = angle
                             }
                         ) { change, _ ->
+                            Log.d("TAG", "angle: ${change.position} vs ${change.previousPosition}")
                             val touchAngle = -atan2(
                                 y = circleCenter.x - change.position.x,
                                 x = circleCenter.y - change.position.y
                             ) * (180f / PI.toFloat())
-                            angle = oldAngle + (touchAngle - dragStartedAngle)
-
+                            //angle = oldAngle + (if((touchAngle - dragStartedAngle) > 0) (touchAngle - dragStartedAngle) else -(touchAngle - dragStartedAngle))
+                           if(change.position.x > change.previousPosition.x)
+                            angle--
+                            else
+                                angle++
+                            //Log.d("TAG", "touchAngle: $touchAngle")
                         }
                     })
             ) {
@@ -146,7 +153,7 @@ fun MainScreen() {
                 )
                 for (i in 1..20)
                     drawContext.canvas.nativeCanvas.apply {
-                        val angleInRad = (i * (360f / 20f) * (PI.toFloat() / 180f)) - (angle / 50)
+                        val angleInRad = (i * (360f / 20f) * (PI.toFloat() / 180f)) - (angle / 20)
                         drawText(i.toString(),
                             ((size.minDimension - 140) / 2) * cos(angleInRad) + center.x,
                             ((canvasHeight - 140) / 2) * sin(angleInRad) + center.y + 30,
