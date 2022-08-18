@@ -119,7 +119,7 @@ fun MainScreen() {
                                 y = circleCenter.x - change.position.x,
                                 x = circleCenter.y - change.position.y
                             ) * (180f / PI.toFloat())
-                             angle = oldAngle + (touchAngle - dragStartedAngle)
+                            angle = oldAngle + (touchAngle - dragStartedAngle)
 
                         }
                     })
