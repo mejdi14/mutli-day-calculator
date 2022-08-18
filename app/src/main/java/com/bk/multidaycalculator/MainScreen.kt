@@ -3,23 +3,29 @@ package com.bk.multidaycalculator
 import android.graphics.Paint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.nativeCanvas
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.sin
+import kotlin.math.*
 
 @Composable
 fun MainScreen() {
+    var angle by remember {
+        mutableStateOf(0f)
+    }
+    var oldAngle by remember {
+        mutableStateOf(0f)
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -91,6 +97,30 @@ fun MainScreen() {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(20.dp)
+                    .pointerInput(key1 = true, block = {
+                        detectDragGestures(
+                            onDragStart = { offset ->
+                                dragStartedAngle = -atan2(
+                                    y = circleCenter.x - offset.x,
+                                    x = circleCenter.y - offset.y
+                                ) * (180f / PI.toFloat())
+                            },
+                            onDragEnd = {
+                                oldAngle = angle
+                            }
+                        ) { change, _ ->
+                            val touchAngle = -atan2(
+                                y = circleCenter.x - change.position.x,
+                                x = circleCenter.y - change.position.y
+                            ) * (180f / PI.toFloat())
+                            val newAngle = oldAngle + (touchAngle - dragStartedAngle)
+                            angle = newAngle.coerceIn(
+                                minimumValue = initialWeight - maxWeight.toFloat(),
+                                maximumValue = initialWeight - minWeight.toFloat()
+                            )
+                            onWeightChange((initialWeight - angle).roundToInt())
+                        }
+                    })
             ) {
                 val canvasWidth = size.width
                 val canvasHeight = size.height
