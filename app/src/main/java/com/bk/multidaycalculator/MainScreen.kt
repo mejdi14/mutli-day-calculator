@@ -26,6 +26,12 @@ fun MainScreen() {
     var oldAngle by remember {
         mutableStateOf(0f)
     }
+    var circleCenter by remember {
+        mutableStateOf(Offset.Zero)
+    }
+    var dragStartedAngle by remember {
+        mutableStateOf(0f)
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -113,12 +119,8 @@ fun MainScreen() {
                                 y = circleCenter.x - change.position.x,
                                 x = circleCenter.y - change.position.y
                             ) * (180f / PI.toFloat())
-                            val newAngle = oldAngle + (touchAngle - dragStartedAngle)
-                            angle = newAngle.coerceIn(
-                                minimumValue = initialWeight - maxWeight.toFloat(),
-                                maximumValue = initialWeight - minWeight.toFloat()
-                            )
-                            onWeightChange((initialWeight - angle).roundToInt())
+                             angle = oldAngle + (touchAngle - dragStartedAngle)
+
                         }
                     })
             ) {
@@ -144,7 +146,7 @@ fun MainScreen() {
                 )
                 for (i in 1..20)
                     drawContext.canvas.nativeCanvas.apply {
-                        val angleInRad = i * (360f / 20f) * (PI.toFloat() / 180f)
+                        val angleInRad = (i * (360f / 20f) * (PI.toFloat() / 180f)) + angle
                         drawText(i.toString(),
                             ((size.minDimension - 140) / 2) * cos(angleInRad) + center.x,
                             ((canvasHeight - 140) / 2) * sin(angleInRad) + center.y + 30,
