@@ -146,7 +146,7 @@ fun MainScreen() {
                 )
                 for (i in 1..20)
                     drawContext.canvas.nativeCanvas.apply {
-                        val angleInRad = (i * (360f / 20f) * (PI.toFloat() / 180f)) + angle
+                        val angleInRad = (i * (360f / 20f) * (PI.toFloat() / 180f)) - (angle / 50)
                         drawText(i.toString(),
                             ((size.minDimension - 140) / 2) * cos(angleInRad) + center.x,
                             ((canvasHeight - 140) / 2) * sin(angleInRad) + center.y + 30,
