@@ -20,29 +20,23 @@ import kotlin.math.*
 
 @Composable
 fun MainScreen() {
-    val dampingFactor = 0.5f
-    var angle by remember {
-        mutableStateOf(0f)
-    }
-    var oldAngle by remember {
-        mutableStateOf(0f)
-    }
-    var circleCenter by remember {
-        mutableStateOf(Offset.Zero)
-    }
-    var dragStartedAngle by remember {
-        mutableStateOf(0f)
-    }
+    var angle by remember { mutableStateOf(0f) }
+    var oldAngle by remember { mutableStateOf(0f) }
+    var circleCenter by remember { mutableStateOf(Offset.Zero) }
+    var dragStartedAngle by remember { mutableStateOf(0f) }
+    var currentDay by remember { mutableStateOf(8) }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFf3e8e6))
     ) {
-
         Column(modifier = Modifier.fillMaxSize()) {
             Box(modifier = Modifier.height(60.dp))
+
+            // Update the text based on currentDay
             Text(
-                text = "20 Days",
+                text = "${if(currentDay > 5) currentDay - 5 else currentDay + 15} Days",
                 modifier = Modifier
                     .padding(start = 20.dp),
                 color = Color(0xFF7DCE13),
@@ -111,6 +105,7 @@ fun MainScreen() {
                                     y = circleCenter.x - offset.x,
                                     x = circleCenter.y - offset.y
                                 ) * (180f / PI.toFloat())
+                                oldAngle = -angle
                             },
                             onDragEnd = {
                                 oldAngle = angle
@@ -120,14 +115,16 @@ fun MainScreen() {
                                 y = circleCenter.x - change.position.x,
                                 x = circleCenter.y - change.position.y
                             ) * (180f / PI.toFloat())
-                            angle = oldAngle + (touchAngle - dragStartedAngle)
+                            angle = -(oldAngle + (touchAngle - dragStartedAngle))
 
                         }
                     })
-            ) {
-                val canvasWidth = size.width
-                val canvasHeight = size.height
+            )
+            {
+                val canvasWidth = this.size.width
+                val canvasHeight = this.size.height
                 circleCenter = Offset(x = canvasWidth / 2, y = canvasHeight / 2)
+                val circleRadius = this.size.minDimension / 2 - 70
 
                 drawCircle(
                     color = Color.Black,
@@ -147,8 +144,9 @@ fun MainScreen() {
                     radius = 48F,
                 )
                 for (i in 1..20) {
-                    val angleInRad =
-                        (i * (360f / 20f) * (PI.toFloat() / 180f)) + angle * (PI.toFloat() / 180f)
+                    val angleInRad = ((i - 1) * (360f / 20f) - angle + 54f) * (PI.toFloat() / 180f)
+
+
                     val x = circleCenter.x + (size.minDimension / 2 - 70) * cos(angleInRad)
                     val y = circleCenter.y + (size.minDimension / 2 - 70) * sin(angleInRad)
 
@@ -163,7 +161,14 @@ fun MainScreen() {
                             }
                         )
                     }
+                    val greenDotX = circleCenter.x + circleRadius * cos(PI.toFloat() / 2)
+                    val greenDotY = circleCenter.y - circleRadius * sin(PI.toFloat() / 2)
+                    val distanceToGreenDot = sqrt((x - greenDotX).pow(2) + (y - greenDotY).pow(2))
+                    if (distanceToGreenDot <= 50) {
+                        currentDay = i
+                    }
                 }
+
             }
         }
     }
