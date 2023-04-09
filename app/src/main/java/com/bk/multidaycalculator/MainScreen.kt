@@ -20,6 +20,7 @@ import kotlin.math.*
 
 @Composable
 fun MainScreen() {
+    val dampingFactor = 0.5f
     var angle by remember {
         mutableStateOf(0f)
     }
@@ -126,17 +127,18 @@ fun MainScreen() {
             ) {
                 val canvasWidth = size.width
                 val canvasHeight = size.height
+                circleCenter = Offset(x = canvasWidth / 2, y = canvasHeight / 2)
 
                 drawCircle(
                     color = Color.Black,
-                    center = Offset(x = canvasWidth / 2, y = canvasHeight / 2),
+                    center = circleCenter,
                     radius = size.minDimension / 2,
                     style = Stroke(10F)
                 )
 
                 drawCircle(
                     color = Color.Black,
-                    center = Offset(x = canvasWidth / 2, y = canvasHeight / 2),
+                    center = circleCenter,
                     radius = 15F,
                 )
                 drawCircle(
@@ -144,12 +146,16 @@ fun MainScreen() {
                     center = Offset(x = canvasWidth / 4, y = canvasHeight / 2),
                     radius = 48F,
                 )
-                for (i in 1..20)
+                for (i in 1..20) {
+                    val angleInRad =
+                        (i * (360f / 20f) * (PI.toFloat() / 180f)) + angle * (PI.toFloat() / 180f)
+                    val x = circleCenter.x + (size.minDimension / 2 - 70) * cos(angleInRad)
+                    val y = circleCenter.y + (size.minDimension / 2 - 70) * sin(angleInRad)
+
                     drawContext.canvas.nativeCanvas.apply {
-                        val angleInRad = (i * (360f / 20f) * (PI.toFloat() / 180f)) + angle
                         drawText(i.toString(),
-                            ((size.minDimension - 140) / 2) * cos(angleInRad) + center.x,
-                            ((canvasHeight - 140) / 2) * sin(angleInRad) + center.y + 30,
+                            x,
+                            y + 30,
                             Paint().apply {
                                 textAlign = Paint.Align.CENTER
                                 textSize = 60F
@@ -157,7 +163,10 @@ fun MainScreen() {
                             }
                         )
                     }
+                }
             }
         }
     }
 }
+
+
