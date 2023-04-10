@@ -18,7 +18,8 @@
 
 ## ✨ Demo
 <p align="center">
-<img src="https://github.com/mejdi14/mutli-day-calculator/blob/master/images/demo.gif" height="400" width="550" >
+https://user-images.githubusercontent.com/22161913/231008854-d07a1a96-bf99-4abf-9c61-e91fddb05211.mp4
+
 	</p>
 	
 	
@@ -38,6 +39,8 @@ Feel free to check [issues page] if you want to contribute.<br />
 👤 **Mejdi Hafiane**
 
 - Twitter: [@MejdiHafiane](https://twitter.com/mejdi141)
+
+
 
 ## Show your support
 
