@@ -17,9 +17,9 @@
 - Many thanks to : [@Dmytro Prudnikov](https://dribbble.com/99miles) for the amazing design
 
 ## ✨ Demo
-	<p align="center">
+<p align="center">
 <img src="https://github.com/mejdi14/mutli-day-calculator/blob/master/images/demo.gif" height="400" width="550" >
-	</p>
+</p>
 
 
 	
