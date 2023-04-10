@@ -36,7 +36,7 @@ fun MainScreen() {
 
             // Update the text based on currentDay
             Text(
-                text = "${if(currentDay > 5) currentDay - 5 else currentDay + 15} Days",
+                text = "${if (currentDay > 5) currentDay - 5 else currentDay + 15} Days",
                 modifier = Modifier
                     .padding(start = 20.dp),
                 color = Color(0xFF7DCE13),
@@ -146,7 +146,6 @@ fun MainScreen() {
                 for (i in 1..20) {
                     val angleInRad = ((i - 1) * (360f / 20f) - angle + 54f) * (PI.toFloat() / 180f)
 
-
                     val x = circleCenter.x + (size.minDimension / 2 - 70) * cos(angleInRad)
                     val y = circleCenter.y + (size.minDimension / 2 - 70) * sin(angleInRad)
 
@@ -168,10 +167,7 @@ fun MainScreen() {
                         currentDay = i
                     }
                 }
-
             }
         }
     }
 }
-
-
